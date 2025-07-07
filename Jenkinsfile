@@ -49,24 +49,36 @@ pipeline {
         }
 
         stage('Terraform Deploy') {
-            steps {
-                dir('terraform') {
-                    withCredentials([[
-                        $class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'aws_cred'
-                    ]]) {
-                        sh '''
-                            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-                            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-                            aws configure set default.region ${AWS_REGION}
+      steps {
+        dir('terraform') {
+          withCredentials([[
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: 'YOUR_AWS_CREDENTIALS_ID',
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+          ]]) {
+            script {
+              sh '''
+                aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                aws configure set default.region $AWS_REGION
 
-                            terraform init
-                            terraform plan
-                            terraform apply -auto-approve
-                        '''
-                    }
-                }
+                terraform init
+                terraform plan
+                terraform apply -auto-approve
+              '''
             }
+          }
         }
+      }
     }
+  }
+ post {
+    failure {
+      echo "❌ Build failed! Check logs above for details."
+    }
+    success {
+      echo "✅ Build, push, and deploy successful!"
+    }
+  }
 }
