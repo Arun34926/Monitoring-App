@@ -19,7 +19,7 @@ resource "aws_instance" "monitor_app" {
 }
 
 resource "aws_security_group" "allow_web" {
-  name        = "allow_web_traffic"
+  name        = "allow_web_traffic_v2"
   description = "Allow port 22 and 5000"
 
   ingress {
