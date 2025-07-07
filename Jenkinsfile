@@ -8,12 +8,6 @@ pipeline {
   }
 
   stages {
-    stage('Clone') {
-      steps {
-        git credentialsId: 'github-creds', url: 'https://github.com/Arun34926/Monitoring-App.git'
-      }
-    }
-
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE_NAME ./monitor-app'
