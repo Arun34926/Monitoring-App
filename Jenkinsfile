@@ -53,7 +53,7 @@ pipeline {
                 dir('terraform') {
                     withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
-                        credentialsId: 'YOUR_AWS_CREDENTIALS_ID'
+                        credentialsId: 'aws_cred'
                     ]]) {
                         sh '''
                             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
