@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git credentialsId: 'github-creds', url: 'https://github.com/your-username/ci-cd-system-monitor.git'
+        git credentialsId: 'github-creds', url: 'https://github.com/Arun34926/Monitoring-App.git'
       }
     }
 
