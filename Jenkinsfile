@@ -53,7 +53,7 @@ pipeline {
         dir('terraform') {
           withCredentials([[
             $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'YOUR_AWS_CREDENTIALS_ID',
+            credentialsId: 'aws_cred',
             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
           ]]) {
